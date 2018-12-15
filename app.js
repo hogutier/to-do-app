@@ -24,11 +24,27 @@ function onReady() {
     // attach the checkbox to the li
     newLi.appendChild(checkbox);
 
+    // create delete button
+    let deleteButton = document.createElement('button');
+
+    // create text node
+    let buttonText = document.createTextNode('Delete Item');
+
+    // attach text to button
+    deleteButton.appendChild(buttonText);
+
+    // attach button to newLi
+    newLi.appendChild(deleteButton);
+
     //attach the li to the ul
     toDoList.appendChild(newLi);
 
     // empty the input
     newToDoText.value = '';
+  });
+
+  toDoList.addEventListener('click', event => {
+    toDoList.remove();
   });
 }
 
