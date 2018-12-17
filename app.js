@@ -58,7 +58,9 @@ function onReady() {
 
       deleteButton.addEventListener('click', event => {
         let liToRemove = event.target.parentNode;
-        liToRemove.remove();
+        if (event.target.previousElementSibling.checked) {
+          liToRemove.remove();
+        }
       });
     }
   });
