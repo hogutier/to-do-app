@@ -1,5 +1,5 @@
 function onReady() {
-  let toDos = [];
+  let toDos = JSON.parse(localStorage.getItem('toDos')) || [];
   const addToDoForm = document.getElementById('addToDoForm');
   let id = 0;
 
@@ -56,8 +56,22 @@ function onReady() {
         let result = toDos.filter(el => el.id !== +liToRemove.id);
         toDos = result;
         liToRemove.remove();
+        localStorage.setItem('toDos', JSON.stringify(toDos));
+      });
+
+      checkbox.addEventListener('click', event => {
+        let liToUpdate = event.target.parentNode;
+        let result = toDos.map(todo => {
+          if (+liToUpdate.id === todo.id) {
+            todo.complete = !todo.complete;
+          }
+          return todo;
+        });
+        toDos = result;
+        localStorage.setItem('toDos', JSON.stringify(toDos));
       });
     });
+    localStorage.setItem('toDos', JSON.stringify(toDos));
   }
 
   addToDoForm.addEventListener('submit', event => {
