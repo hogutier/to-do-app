@@ -47,25 +47,22 @@ function onReady() {
 
       newLi.textContent = toDo.title;
 
-      toDoList.appendChild(newLi);
       newLi.prepend(checkbox);
       newLi.appendChild(deleteButton);
+      toDoList.appendChild(newLi);
+
+      deleteButton.addEventListener('click', event => {
+        let liToRemove = event.target.parentNode;
+        let result = toDos.filter(el => el.id !== +liToRemove.id);
+        toDos = result;
+        liToRemove.remove();
+      });
     });
   }
 
   addToDoForm.addEventListener('submit', event => {
     event.preventDefault();
     createNewToDo();
-  });
-
-  const list = document.getElementById('toDoList');
-
-  list.addEventListener('click', event => {
-    let liToRemove = event.target.parentNode;
-    let ul = liToRemove.parentNode;
-    let result = toDos.filter(el => el.id !== liToRemove.id);
-    toDos = result;
-    ul.removeChild(liToRemove);
   });
   renderTheUI();
 }
